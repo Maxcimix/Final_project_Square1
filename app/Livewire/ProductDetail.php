@@ -49,7 +49,7 @@ class ProductDetail extends Component
 
     public function addToCart()
     {
-        // Aquí implementaremos la lógica del carrito
+
         $cart = Cart::firstOrCreate([
             'session_id' => session()->getId()
         ]);
