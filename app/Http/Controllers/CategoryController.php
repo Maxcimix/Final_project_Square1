@@ -9,31 +9,53 @@ class CategoryController extends Controller
 {
     public function women()
     {
-        return $this->showCategory('womens-fashion');
+        $category = Category::where('slug', 'women')->firstOrFail();
+        $products = Product::where('category_id', $category->id)
+            ->with('category')
+            ->paginate(12);
+
+        return view('categories.show', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 
     public function men()
     {
-        return $this->showCategory('mens-fashion');
+        $category = Category::where('slug', 'men')->firstOrFail();
+        $products = Product::where('category_id', $category->id)
+            ->with('category')
+            ->paginate(12);
+
+        return view('categories.show', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 
     public function kids()
     {
-        return $this->showCategory('kids');
+        $category = Category::where('slug', 'kids')->firstOrFail();
+        $products = Product::where('category_id', $category->id)
+            ->with('category')
+            ->paginate(12);
+
+        return view('categories.show', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 
     public function accessories()
     {
-        return $this->showCategory('accessories');
-    }
-
-    protected function showCategory($slug)
-    {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', 'accessories')->firstOrFail();
         $products = Product::where('category_id', $category->id)
-            ->where('is_active', true)
+            ->with('category')
             ->paginate(12);
-            
-        return view('categories.show', compact('category', 'products'));
+
+        return view('categories.show', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 }

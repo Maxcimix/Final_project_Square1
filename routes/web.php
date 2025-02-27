@@ -8,8 +8,14 @@ use App\Http\Controllers\OrdersController;
 use App\Livewire\Shop\Cart;
 use App\Livewire\CartComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 
 Route::get('/', HomeController::class)->name('home');
+
+// Rutas del carrito
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 
 // Category routes
 Route::get('/women', [CategoryController::class, 'women'])->name('women');
